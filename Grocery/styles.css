@@ -1,0 +1,171 @@
+/* General styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header img {
+    width: 200px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Adjusted CSS for the "Add to Cart" button */
+.restaurant-card .add-to-cart {
+    background-color: #007bff; /* Blue color for the button */
+    color: #fff; /* White text color */
+    border: none; /* No border */
+    border-radius: 50%; /* Round shape */
+    width: 30px; /* Width of the button */
+    height: 30px; /* Height of the button */
+    font-size: 20px; /* Size of the plus sign */
+    line-height: 30px; /* Centering the plus sign vertically */
+    text-align: center; /* Centering the plus sign horizontally */
+    position: absolute; /* Positioning relative to the card */
+    top: 10px; /* Adjust the top position */
+    right: 10px; /* Adjust the right position */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+/* Checkout button styling */
+#checkout-button {
+    background-color: #28a745; /* Green color for the button */
+    color: #fff; /* White text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 20px; /* Padding around text */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    margin-top: 20px; /* Add some space between the button and footer */
+    margin: auto; /* Center the button horizontally */
+    display: block; /* Ensure the button is displayed as a block element */
+}
+
+#checkout-button:hover {
+    background-color: #218838; /* Darker green color on hover */
+}
+
+
+
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section {
+    padding: 40px 0;
+}
+
+/* Header styling */
+header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+}
+
+header h1 {
+    font-size: 36px;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Services page styling */
+#restaurant-list {
+    background-color: #fff;
+    padding: 40px 0;
+}
+
+.restaurant-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.restaurant-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added bit of shadow */
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-5px);
+}
+
+.restaurant-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+    border-radius: 8px 8px 0 0;
+}
+
+.restaurant-details {
+    padding: 20px;
+}
+
+.restaurant-details h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.restaurant-details p {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.restaurant-details span {
+    font-weight: bold;
+    color: #333;
+}
+
+.restaurant-details .distance {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.restaurant-details .distance:before {
+    content: "\2022";
+    margin-right: 5px;
+}
+
+.restaurant-details .distance:before,
+.restaurant-details .distance:after {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 10px;
+    color: #666;
+}
+
+.restaurant-details .distance:after {
+    content: " ";
+    width: 8px;
+    height: 1px;
+    background-color: #666;
+}
