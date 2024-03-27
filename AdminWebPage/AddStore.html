@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Include the navbar placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Page Content -->
+    <div id="content">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-align-left"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                Current User: <span id="current-user">John Doe</span>
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-danger ml-3" onclick="logout()">Logout</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Analytics Section -->
+      <div class="container-fluid mt-3">
+        <h2>Add Store</h2>
+        <form id="addStoreForm">
+            <div class="form-group">
+              <label for="storeName">Store Name:</label>
+              <input type="text" class="form-control" id="storeName" placeholder="Enter store name">
+            </div>
+            <div class="form-group">
+              <label for="storeAddress">Store Address:</label>
+              <input type="text" class="form-control" id="storeAddress" placeholder="Enter store address">
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+            <label for="contactNumber">Contact Number:</label>
+            <input type="text" class="form-control" id="contactNumber" placeholder="Enter contact number">
+          </div>
+          <div class="form-group">
+            <label for="storeLogo">Store Logo:</label>
+            <input type="file" class="form-control-file" id="storeLogo">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      <!-- View Stores Section -->
+      <hr>
+      <h2>View Stores</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Store Name</th>
+            <th>Store Address</th>
+            <th>Email</th>
+            <th>Contact Number</th>
+            <th>Store Logo</th>
+            <th>Actions</th> <!-- New column for actions -->
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows for displaying store data will be populated here -->
+          <tr>
+            <td>Store 1</td>
+            <td>Address 1</td>
+            <td>store1@example.com</td>
+            <td>1234567890</td>
+            <td><img src="store1_logo.jpg" alt="Store 1 Logo" style="max-width: 100px;"></td>
+            <td>
+              <!-- Button to modify entry -->
+              <button class="btn btn-primary" onclick="modifyStoreEntry(1)">Modify</button>
+            </td>
+          </tr>
+          <!-- Add more rows for additional stores as needed -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="module" src="script.js"></script>
+<!-- Ensure that script containing the function is loaded before attaching onclick event -->
+<script src="dist/bundle.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"></script>
+<script type="module" src="Server/firebaseConfig.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"></script>
+
+<!-- Your addStore.js script -->
+<script type="module" src="Server/addStore.js"></script>
+
+<script>
+  function logout() {
+    // Implement logout functionality here
+    alert("Logout clicked!");
+  }
+
+  // Function to fetch and include navbar using JavaScript
+  fetch('navbar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('navbar-placeholder').innerHTML = data;
+    });
+
+  function openAddStorePage() {
+    window.location.href = "AddStore.html";
+  }
+
+  function openAddProductPage() {
+    window.location.href = "AddProducts.html";
+  }
+
+  function openCurrentOrdersPage() {
+    window.location.href = "CurrentOrders.html";
+  }
+
+  function openTotalOrdersPage() {
+    window.location.href = "TotalOrders.html";
+  }
+
+  function openAboutUsPage() {
+    window.location.href = "AboutUs.html";
+  }
+
+  function openContactUsPage() {
+    window.location.href = "ContactUs.html";
+  }
+
+  // Function to handle modifying store entry
+  function modifyStoreEntry(storeId) {
+    // Redirect to modify store page with storeId parameter
+    window.location.href = `ModifyStore.html?storeId=${storeId}`;
+  }
+</script>
+</body>
+</html>

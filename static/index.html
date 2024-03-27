@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipe Recommendations</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 16px;
+}
+
+.no-recipes {
+    font-size: 16px;
+    color: #888;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.matching-count {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+    <div id="recommendations"></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('/recommend', {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        const recommendationsDiv = document.getElementById('recommendations');
+        recommendationsDiv.innerHTML = '';
+        if (data.length === 0) {
+            recommendationsDiv.innerHTML = '<p class="no-recipes">No recipes found.</p>';
+        } else {
+            data.forEach(recipe => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+
+                const cardContent = document.createElement('div');
+                cardContent.classList.add('card-content');
+
+                const cardTitle = document.createElement('h2');
+                cardTitle.classList.add('card-title');
+                cardTitle.textContent = recipe.name;
+
+                const cardText = document.createElement('p');
+                cardText.classList.add('card-text');
+                cardText.textContent = recipe.ingredients.join(', ');
+
+                const matchingCount = document.createElement('p');
+                matchingCount.classList.add('matching-count');
+                matchingCount.textContent = `Matching Ingredients: ${recipe.matched_ingredients} / ${recipe.ingredients.length}`;
+
+                cardContent.appendChild(cardTitle);
+                cardContent.appendChild(cardText);
+                cardContent.appendChild(matchingCount);
+                card.appendChild(cardContent);
+
+                recommendationsDiv.appendChild(card);
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+</script>
+</body>
+</html>

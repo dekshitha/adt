@@ -1,0 +1,53 @@
+<!-- navbar.html -->
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <h3><a href="admin.html" style="color: #fff; text-decoration: none;">Admin Dashboard</a></h3>
+    </div>
+
+    <ul class="list-unstyled components">
+        <li class="active">
+            <a href="#" onclick="openAddStorePage()"><i class="fas fa-store"></i> Manage Store</a>
+        </li>
+        <li>
+            <a href="#" onclick="openAddProductPage()"><i class="fas fa-box"></i> Manages Products</a>
+        </li>
+        <li>
+            <a href="#" onclick="openCurrentOrdersPage()"><i class="fas fa-shopping-cart"></i> Current Orders</a>
+        </li>
+        <li>
+            <a href="#" onclick="openTotalOrdersPage()"><i class="fas fa-shopping-bag"></i> Total Orders</a>
+        </li>
+        <li>
+            <a href="#" onclick="openAboutUsPage()"><i class="fas fa-info-circle"></i> About Us</a>
+        </li>
+        <li>
+            <a href="#" onclick="openContactUsPage()"><i class="fas fa-phone"></i> Contact Us</a>
+        </li>
+    </ul>
+</nav>
+
+<script>
+    function openAddStorePage() {
+        window.location.href = "AddStore.html";
+    }
+
+    function openAddProductPage() {
+        window.location.href = "AddProducts.html";
+    }
+
+    function openCurrentOrdersPage() {
+        window.location.href = "CurrentOrders.html";
+    }
+
+    function openTotalOrdersPage() {
+        window.location.href = "TotalOrders.html";
+    }
+
+    function openAboutUsPage() {
+        window.location.href = "AboutUs.html";
+    }
+
+    function openContactUsPage() {
+        window.location.href = "ContactUs.html";
+    }
+</script>

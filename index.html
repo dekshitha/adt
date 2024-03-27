@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Our Site</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('Designer-2.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .welcome-section {
+    margin-right: 50px;
+    flex-basis: 50%;
+    color: white;
+  }
+
+  .login-container {
+    margin-left: 70px;
+    width: 100%;
+    max-width: 450px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 30px 25px;
+  }
+
+  h1, h2, input, button {
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 2.5em;
+  }
+  h2 {
+    font-size: 1.5em;
+    color: #333;
+    text-align: center;
+  }
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  button {
+    width: 100%;
+    padding: 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: #667eea;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #564ba2;
+  }
+  .register {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .register a {
+    color: #667eea;
+    text-decoration: none;
+  }
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      text-align: center;
+    }
+    .welcome-section, .login-container {
+      flex-basis: 100%;
+    }
+  }
+
+  .radio-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .radio-container label {
+    margin: 0 10px;
+    color: #333;
+  }
+
+  .radio-container input[type="radio"] {
+    margin: 0 5px 0 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="welcome-section">
+    <h1>Welcome to Our Site</h1>
+    <p>Explore and discover new possibilities with us.</p>
+  </div>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="login-form">
+      <input type="text" placeholder="Username" name="username" required>
+      <input type="password" placeholder="Password" name="password" required>
+      <div class="radio-container">
+        <input type="radio" id="customer" name="userType" value="customer" required>
+        <label for="customer">Customer</label>
+        <input type="radio" id="supplier" name="userType" value="supplier">
+        <label for="supplier">Supplier</label>
+      </div>
+      <button type="submit">Login</button>
+      <div class="register">
+        Don't have an account? <a href="/register">Register</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.getElementById('login-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const username = this.querySelector('input[name="username"]').value;
+    const password = this.querySelector('input[name="password"]').value;
+    const userType = this.querySelector('input[name="userType"]:checked').value;
+
+    // Check username, password, and userType and redirect accordingly
+    if (username === "res123" && password === "cus123" && userType === "customer") {
+      window.location.href = "Restaurants/index.html";
+    } else if (username === "mart123" && password === "sup123" && userType === "supplier") {
+      window.location.href = "AdminWebPage/admin.html";
+    } else {
+      alert("Invalid credentials or user type!");
+    }
+  });
+</script>
+
+</body>
+</html>

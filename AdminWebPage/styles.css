@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  .wrapper {
+    display: flex;
+  }
+  
+  #sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #343a40;
+    color: #fff;
+    transition: all 0.3s;
+    height: 100vh; /* Set height to full viewport height */
+  }
+  
+  #sidebar.active {
+    margin-left: -250px;
+  }
+  
+  #sidebar .sidebar-header {
+    padding: 20px;
+  }
+  
+  #sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+    flex-grow: 1; /* Fill remaining vertical space */
+  }
+  
+  #sidebar ul.components li {
+    padding: 10px;
+  }
+  
+  #sidebar ul.components li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+  }
+  
+  #sidebar ul.components li a:hover {
+    background-color: #17a2b8;
+  }
+  
+  #content {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .navbar-brand {
+    font-size: 1.5em;
+  }
+  
+  .navbar-nav {
+    margin-left: auto;
+  }
+  
+  .navbar-text {
+    margin-right: 20px;
+  }
+  
+  .container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    margin-bottom: 10px;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    #sidebar {
+      margin-left: -250px;
+      height: auto; /* Reset height for smaller screens */
+    }
+  }
+  

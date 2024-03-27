@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart for Grocery</title>
+</head>
+<body>
+
+<div class="container">
+  <!-- Your grocery cart content goes here -->
+</div>
+
+<button id="start-app-btn">Start App</button>
+
+<script>
+document.getElementById('start-app-btn').addEventListener('click', function() {
+    fetch('/start-app')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message); // Log the response from the server
+    })
+    .catch(error => console.error('Error:', error));
+});
+</script>
+
+</body>
+</html>

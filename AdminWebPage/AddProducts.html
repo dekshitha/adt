@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Include the navbar placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Page Content -->
+    <div id="content">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-align-left"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                Current User: <span id="current-user">John Doe</span>
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-danger ml-3" onclick="logout()">Logout</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+<!-- Add Products Form -->
+<div class="container mt-5">
+    <h2>Add Products</h2>
+    <form>
+      <div class="form-group">
+        <label for="productName">Product Name:</label>
+        <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+      </div>
+      <div class="form-group">
+        <label for="productPrice">Product Price:</label>
+        <input type="text" class="form-control" id="productPrice" placeholder="Enter product price">
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" id="description" rows="3" placeholder="Enter description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="stockAvailable">Stock Available:</label>
+        <input type="text" class="form-control" id="stockAvailable" placeholder="Enter stock available">
+      </div>
+      <div class="form-group">
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="date" class="form-control" id="expiryDate">
+      </div>
+      <div class="form-group">
+        <label for="picture">Picture:</label>
+        <input type="file" class="form-control-file" id="picture">
+      </div>
+      <div class="form-group">
+        <label for="storeName">Store Name:</label>
+        <select class="form-control" id="storeName">
+          <option>Select store</option>
+          <option>Store 1</option>
+          <option>Store 2</option>
+          <option>Store 3</option>
+          <!-- Add options dynamically using JavaScript if needed -->
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  
+  <!--Add Bulk Product-->
+  <div class="container mt-5">
+    <h2>Add Bulk Products</h2>
+    <div class="form-group">
+        <label for="excelFile">Upload Excel:</label>
+        <input type="file" class="form-control-file" id="excelFile">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+
+  <!-- View Products -->
+  <div class="container mt-5">
+    <h2>View Products</h2>
+    <div class="form-group">
+      <label for="filterStore">Filter by Store:</label>
+      <select class="form-control" id="filterStore">
+        <option>All Stores</option>
+        <option>Store 1</option>
+        <option>Store 2</option>
+        <option>Store 3</option>
+        <!-- Add options dynamically using JavaScript if needed -->
+      </select>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Stock Available</th>
+          <th>Expiry Date</th>
+          <th>Picture</th>
+          <th>Store Name</th>
+          <th>Actions</th> <!-- New column for actions -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Table rows will be dynamically populated with product data -->
+        <tr>
+          <td>Product 1</td>
+          <td>$10</td>
+          <td>Description of Product 1</td>
+          <td>100</td>
+          <td>2024-12-31</td>
+          <td><img src="product1.jpg" alt="Product 1"></td>
+          <td>Store 1</td>
+          <td>
+            <!-- Button to modify entry -->
+            <button class="btn btn-primary" onclick="modifyProductEntry(1)">Modify</button>
+          </td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+  <!-- Ensure that script containing the function is loaded before attaching onclick event -->
+  <script>
+    function logout() {
+      // Implement logout functionality here
+      alert("Logout clicked!");
+    }
+
+    // Function to fetch and include navbar using JavaScript
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+      });
+
+      function openAddStorePage() {
+        window.location.href = "AddStore.html";
+    }
+
+    function openAddProductPage() {
+        window.location.href = "AddProducts.html";
+    }
+
+    function openCurrentOrdersPage() {
+        window.location.href = "CurrentOrders.html";
+    }
+
+    function openTotalOrdersPage() {
+        window.location.href = "TotalOrders.html";
+    }
+
+    function openAboutUsPage() {
+        window.location.href = "AboutUs.html";
+    }
+
+    function openContactUsPage() {
+        window.location.href = "ContactUs.html";
+    }
+    // Function to handle modifying store entry
+    function modifyProductEntry(storeId) {
+      // Redirect to modify store page with storeId parameter
+      window.location.href = `ModifyProduct.html?storeId=${storeId}`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Include the navbar placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Page Content -->
+    <div id="content">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-align-left"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                Current User: <span id="current-user">John Doe</span>
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-danger ml-3" onclick="logout()">Logout</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Analytics Section -->
+      <div class="container-fluid mt-3">
+        <h2>Welcome to the Admin Dashboard</h2>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h3>Number of Stores</h3>
+                <p>This section will display the number of stores.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h3>Number of Customers - per store</h3>
+                <p>This section will display the number of customers per store.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h3>Revenue - per store</h3>
+                <p>This section will display the revenue per store.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h3>Total Orders - per store</h3>
+                <p>This section will display the total orders per store.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+  <!-- Ensure that script containing the function is loaded before attaching onclick event -->
+  <script>
+    function logout() {
+      // Implement logout functionality here
+      alert("Logout clicked!");
+    }
+
+    // Function to fetch and include navbar using JavaScript
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+      });
+
+      function openAddStorePage() {
+        window.location.href = "AddStore.html";
+    }
+
+    function openAddProductPage() {
+        window.location.href = "AddProducts.html";
+    }
+
+    function openCurrentOrdersPage() {
+        window.location.href = "CurrentOrders.html";
+    }
+
+    function openTotalOrdersPage() {
+        window.location.href = "TotalOrders.html";
+    }
+
+    function openAboutUsPage() {
+        window.location.href = "AboutUs.html";
+    }
+
+    function openContactUsPage() {
+        window.location.href = "ContactUs.html";
+    }
+  </script>
+</body>
+</html>
