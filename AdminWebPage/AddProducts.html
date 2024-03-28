@@ -36,7 +36,7 @@
 <!-- Add Products Form -->
 <div class="container mt-5">
     <h2>Add Products</h2>
-    <form>
+    <form id="addProductForm">
       <div class="form-group">
         <label for="productName">Product Name:</label>
         <input type="text" class="form-control" id="productName" placeholder="Enter product name">
@@ -64,11 +64,8 @@
       <div class="form-group">
         <label for="storeName">Store Name:</label>
         <select class="form-control" id="storeName">
-          <option>Select store</option>
-          <option>Store 1</option>
-          <option>Store 2</option>
-          <option>Store 3</option>
-          <!-- Add options dynamically using JavaScript if needed -->
+          <option value="">Select store</option>
+          
         </select>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
@@ -91,10 +88,7 @@
     <div class="form-group">
       <label for="filterStore">Filter by Store:</label>
       <select class="form-control" id="filterStore">
-        <option>All Stores</option>
-        <option>Store 1</option>
-        <option>Store 2</option>
-        <option>Store 3</option>
+        <option value="">Select store</option>
         <!-- Add options dynamically using JavaScript if needed -->
       </select>
     </div>
@@ -111,23 +105,9 @@
           <th>Actions</th> <!-- New column for actions -->
         </tr>
       </thead>
-      <tbody>
-        <!-- Table rows will be dynamically populated with product data -->
-        <tr>
-          <td>Product 1</td>
-          <td>$10</td>
-          <td>Description of Product 1</td>
-          <td>100</td>
-          <td>2024-12-31</td>
-          <td><img src="product1.jpg" alt="Product 1"></td>
-          <td>Store 1</td>
-          <td>
-            <!-- Button to modify entry -->
-            <button class="btn btn-primary" onclick="modifyProductEntry(1)">Modify</button>
-          </td>
-        </tr>
-        <!-- Add more rows as needed -->
-      </tbody>
+      <tbody id="ProdTableBody">
+        <!-- Rows for displaying store data will be populated here -->
+      </tbody> 
     </table>
   </div>
 </div>
@@ -138,7 +118,70 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
   <!-- Ensure that script containing the function is loaded before attaching onclick event -->
-  <script>
+
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script src="Server/firebaseProductConfig.js"></script>
+
+<script>
+
+// Function to fetch store names from Firebase and populate the select element
+function fetchStoreNames() {
+  const storeNameSelect = document.getElementById('storeName');
+  
+  // Reference to the stores in Firebase Realtime Database
+  const storesRef = firebase.database().ref('ResQFeast/Stores');
+
+  // Fetch stores data
+  storesRef.once('value', (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      const storeData = childSnapshot.val();
+      const storeName = storeData.storeName;
+
+      // Create option element
+      const option = document.createElement('option');
+      option.value = storeName;
+      option.textContent = storeName;
+
+      // Append option to select element
+      storeNameSelect.appendChild(option);
+    });
+  });
+}
+
+// Call the function to fetch and populate store names when the page loads
+window.addEventListener('load', fetchStoreNames);
+
+// Function to fetch store names from Firebase and populate the filterStore select element
+function fetchFilterStoreNames() {
+  const filterStoreSelect = document.getElementById('filterStore');
+  
+  // Reference to the stores in Firebase Realtime Database
+  const storesRef = firebase.database().ref('ResQFeast/Stores');
+
+  // Fetch stores data
+  storesRef.once('value', (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      const storeData = childSnapshot.val();
+      const storeName = storeData.storeName;
+
+      // Create option element
+      const option = document.createElement('option');
+      option.value = storeName;
+      option.textContent = storeName;
+
+      // Append option to select element
+      filterStoreSelect.appendChild(option);
+    });
+  });
+}
+
+// Call the function to fetch and populate store names when the page loads
+window.addEventListener('load', fetchFilterStoreNames);
+
+
     function logout() {
       // Implement logout functionality here
       alert("Logout clicked!");

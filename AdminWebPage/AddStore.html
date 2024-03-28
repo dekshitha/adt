@@ -74,21 +74,9 @@
             <th>Actions</th> <!-- New column for actions -->
           </tr>
         </thead>
-        <tbody>
+        <tbody id="storeTableBody">
           <!-- Rows for displaying store data will be populated here -->
-          <tr>
-            <td>Store 1</td>
-            <td>Address 1</td>
-            <td>store1@example.com</td>
-            <td>1234567890</td>
-            <td><img src="store1_logo.jpg" alt="Store 1 Logo" style="max-width: 100px;"></td>
-            <td>
-              <!-- Button to modify entry -->
-              <button class="btn btn-primary" onclick="modifyStoreEntry(1)">Modify</button>
-            </td>
-          </tr>
-          <!-- Add more rows for additional stores as needed -->
-        </tbody>
+        </tbody>        
       </table>
     </div>
   </div>
@@ -103,14 +91,10 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"></script>
-<script type="module" src="Server/firebaseConfig.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"></script>
 
-<!-- Your addStore.js script -->
-<script type="module" src="Server/addStore.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script src="Server/firebaseConfig.js"></script>
+
 
 <script>
   function logout() {

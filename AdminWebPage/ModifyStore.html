@@ -32,12 +32,14 @@
               </div>
             </div>
           </nav>
-    
+
 <!-- Page Content -->
 <div id="content">
     <div class="container-fluid mt-3">
       <h2>Modify Store</h2>
       <form>
+        <input type="hidden" id="storeId">
+        <input type="hidden" id="storeHistoryId">
         <div class="form-group">
           <label for="storeName">Store Name:</label>
           <input type="text" class="form-control" id="storeName" placeholder="Enter store name">
@@ -65,7 +67,7 @@
     <hr>
     <div class="container-fluid mt-3">
       <h2>Store Modification History</h2>
-      <table class="table">
+      <table class="table" id="storeHistoryTable">
         <thead>
           <tr>
             <th>Date Modified</th>
@@ -74,22 +76,74 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>2024-03-23</td>
-            <td>Admin User</td>
-            <td>Updated store address</td>
-          </tr>
-          <!-- Add more rows for additional modifications as needed -->
+          <!-- Rows for displaying store modification history will be populated here -->          
         </tbody>
       </table>
     </div>
   </div>
+
+<!-- Script section -->
+<script>
+  // Get store ID from URL query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const storeId = urlParams.get('storeId');
+
+  // Function to fetch store data from Firebase based on store ID
+  function fetchStoreData(storeId) {
+    // Firebase database reference for store data
+    const storeRef = firebase.database().ref('ResQFeast').child('Stores').child(storeId);
+    storeRef.once('value', (snapshot) => {
+      const storeData = snapshot.val();
+      if (storeData) {
+        // Prepopulate form fields with fetched data
+        document.getElementById('storeName').value = storeData.storeName;
+        document.getElementById('storeAddress').value = storeData.storeAddress;
+        document.getElementById('email').value = storeData.email;
+        document.getElementById('contactNumber').value = storeData.contactNumber;
+        // Optionally, you can also prepopulate storeLogo field if needed
+      }
+    });
+  }
+
+  // Function to fetch store modification history from Firebase
+  function fetchStoreHistory(storeId) {
+    // Firebase database reference for store modification history
+    const historyRef = firebase.database().ref('ResQFeast').child('Stores').child(storeId).child('modificationHistory');
+    historyRef.once('value', (snapshot) => {
+      const historyData = snapshot.val();
+      if (historyData) {
+        // Populate store modification history table
+        const tableBody = document.querySelector('#storeHistoryTable tbody');
+        tableBody.innerHTML = ''; // Clear existing rows
+        Object.keys(historyData).forEach((key) => {
+          const historyItem = historyData[key];
+          const row = `<tr><td>${historyItem.ModifiedDate}</td><td>${historyItem.ModifiedBy}</td><td>${historyItem.ModificationDetails}</td></tr>`;
+          tableBody.innerHTML += row;
+        });
+      }
+    });
+  }
+
+  // Call the function to fetch and populate store modification history when the page loads
+  window.addEventListener('load', () => {
+    fetchStoreData(storeId);
+    fetchStoreHistory(storeId);
+  });
+
+  // Other functions such as saveChanges and deleteStore can be added here
+</script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
   <!-- Ensure that script containing the function is loaded before attaching onclick event -->
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+  <script src="Server/firebaseConfig.js"></script>
+
   <script>
     function logout() {
       // Implement logout functionality here

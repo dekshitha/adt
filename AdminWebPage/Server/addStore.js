@@ -2,63 +2,69 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebaseConfig.js'; // Assuming firebaseConfig.js is in the same directory
 //import { initializeApp } from 'firebase/compat/app'; // Assuming firebase@compat is installed
 
-initializeApp(firebaseConfig);
+// Initialize the firebase
+firebase.initializeApp(firebaseConfig);
 
+document.getElementById('addStoreForm').addEventListener('submit', submitform);  
 
-document.getElementById('addStoreForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent default form submission
-  
-  const storeName = document.getElementById('storeName').value;
-  const storeAddress = document.getElementById('storeAddress').value;
-  const email = document.getElementById('email').value;
-  const contactNumber = document.getElementById('contactNumber').value;
+function submitform(e){
+  e.preventDefault();
+
+  var storeName = getElementVal('storeName');
+  var storeAddress = getElementVal('storeAddress');
+  var email = getElementVal('email');
+  var contactNumber = getElementVal('contactNumber');
   const storeLogo = document.getElementById('storeLogo').files[0];
 
-  const database = firebase.database();
-  const storesRef = database.ref('stores');
-  const maxIdsRef = database.ref('max_ids');
-
-  maxIdsRef.transaction(function(maxIds) {
-    if (maxIds) {
-      maxIds.storeId = (maxIds.storeId || 0) + 1;
-      maxIds.storeHistoryId = (maxIds.storeHistoryId || 0) + 1;
-    } else {
-      maxIds = {
-        storeId: 1,
-        storeHistoryId: 1
-      };
-    }
-    return maxIds;
-  }, function(error, committed, snapshot) {
-    if (error) {
-      console.error('Transaction failed abnormally!', error);
-      alert('An error occurred while adding the store. Please try again.');
-    } else if (!committed) {
-      console.log('Transaction aborted.');
-    } else {
-      console.log('Transaction successfully committed:', snapshot.val());
-
-      const { storeId, storeHistoryId } = snapshot.val();
-
-      const storeData = {
-        storeId: storeId,
-        storeName: storeName,
-        storeAddress: storeAddress,
-        email: email,
-        contactNumber: contactNumber
-        // Add other fields as needed
-      };
-
-      const newStoreRef = storesRef.push();
-      newStoreRef.set(storeData)
-        .then(() => {
-          alert('Store added successfully!');
-          document.getElementById('addStoreForm').reset(); // Reset form after successful submission
-        })
-        .catch(error => {
-          console.error('Error adding store:', error);
-          alert('An error occurred while adding the store. Please try again.');
-        });
-    }
+  console.log("addStorejs");
+  // Upload logo file to Firebase Storage
+  uploadLogo(storeLogo, (logoUrl) => {
+    // Once upload is complete, save store details to the database including logo URL
+    SaveDetailsToDB(storeName, storeAddress, email, contactNumber, logoUrl);
   });
-});
+}
+
+// Function to upload logo file to Firebase Storage
+function uploadLogo(file, callback) {
+  var storageRef = firebase.storage().ref('storeLogos/' + file.name);
+
+  // Upload file to Firebase Storage
+  var task = storageRef.put(file);
+
+  // Listen for state changes, errors, and completion of the upload.
+  task.on('state_changed',
+    function progress(snapshot) {
+      // Handle progress
+    },
+    function error(err) {
+      // Handle unsuccessful uploads
+      console.error('Error uploading logo:', err);
+    },
+    function complete() {
+      // Handle successful uploads
+      task.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        // Pass download URL to the callback function
+        callback(downloadURL);
+      });
+    }
+  );
+}
+
+
+//store all the values into the database
+const SaveDetailsToDB = (storeName, storeAddress, email, contactNumber, logoUrl) => {
+  var newAddStoreForm = ResQFeastDB.push();
+
+  newAddStoreForm.set({
+    storeName: storeName,
+    storeAddress: storeAddress,
+    email: email,
+    contactNumber: contactNumber,
+    storeLogo: logoUrl // Include logo URL in the database entry
+  });
+}
+
+//get value of all the fields in the form
+const getElementVal = (id) => {
+  return document.getElementById(id).value;
+}
