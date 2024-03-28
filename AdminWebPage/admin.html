@@ -42,37 +42,19 @@
             <div class="card">
               <div class="card-body">
                 <h3>Number of Stores</h3>
-                <p>This section will display the number of stores.</p>
+                <p id="num-of-stores">Loading...</p>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="card">
               <div class="card-body">
-                <h3>Number of Customers - per store</h3>
-                <p>This section will display the number of customers per store.</p>
+                <h3>Number of Products - per store</h3>
+                <canvas id="lineChart"></canvas> <!-- Add this canvas element -->
               </div>
             </div>
           </div>
         </div>
-        
-        <div class="row mt-4">
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <h3>Revenue - per store</h3>
-                <p>This section will display the revenue per store.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <h3>Total Orders - per store</h3>
-                <p>This section will display the total orders per store.</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -81,9 +63,154 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="script.js"></script>
-  <!-- Ensure that script containing the function is loaded before attaching onclick event -->
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+
+  <!-- Add this script tag before the closing body tag -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAgYSKr2iHWZhLvg4P7THhqUNK6-asafVw",
+  authDomain: "resqfeast-dfbd5.firebaseapp.com",
+  databaseURL: "https://resqfeast-dfbd5-default-rtdb.firebaseio.com",
+  projectId: "resqfeast-dfbd5",
+  storageBucket: "resqfeast-dfbd5.appspot.com",
+  messagingSenderId: "786703754246",
+  appId: "1:786703754246:web:a141a66a19202273228f87",
+  measurementId: "G-70N9XYMCEC"
+};
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  </script>
+
   <script>
+    function logout() {
+      // Implement logout functionality here
+      alert("Logout clicked!");
+    }
+
+    // Function to fetch and include navbar using JavaScript
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+      });
+
+       // Function to fetch and display the number of stores
+  function fetchNumOfStores() {
+      const numOfStoresParagraph = document.getElementById('num-of-stores');
+
+      // Reference to the storeIdCounter node in Firebase Realtime Database
+      const storeIdCounterRef = firebase.database().ref('ResQFeast/storeIdCounter'); 
+
+      // Fetch the number of stores
+      storeIdCounterRef.once('value').then((snapshot) => {
+        const numOfStores = snapshot.val();
+        numOfStoresParagraph.innerText = `Number of Stores: ${numOfStores}`;
+      }).catch((error) => {
+        console.error("Error fetching number of stores:", error);
+      });
+    }
+
+    // Call the function to fetch and display the number of stores when the page loads
+    window.addEventListener('load', fetchNumOfStores);
+
+
+
+
+function fetchNumOfProductsPerStore() {
+  // Reference to the 'Products' node in Firebase
+  const productsRef = firebase.database().ref('ResQFeast/Products');
+
+  // Arrays to store store names and corresponding number of products
+  const storeNames = [];
+  const numOfProducts = [];
+
+  // Fetch products data
+  productsRef.once('value', (snapshot) => {
+    snapshot.forEach((storeSnapshot) => {
+      const storeName = storeSnapshot.key;
+      const storeProducts = storeSnapshot.val().Products;
+      let productCount = 0;
+
+      // Iterate over the products in the store and count them
+      for (const productId in storeProducts) {
+        if (Object.hasOwnProperty.call(storeProducts, productId)) {
+          productCount++;
+        }
+      }
+
+      // Log store name and product count
+      console.log(`Store Name: ${storeName}, Number of Products: ${productCount}`);
+
+      // Push store name and product count to arrays
+      storeNames.push(storeName);
+      numOfProducts.push(productCount);
+    });
+
+    // Call the function to generate the line chart
+    generateLineChart(storeNames, numOfProducts);
+  }).catch((error) => {
+    console.error('Error fetching products:', error);
+  });
+}
+
+function generateLineChart(storeNames, numOfProducts) {
+  // Get the canvas element
+  const ctx = document.getElementById('lineChart');
+
+  // Check if the canvas context is available
+  if (!ctx) {
+    console.error("Canvas context not available");
+    return;
+  }
+  // Create the line chart
+  window.lineChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: storeNames,
+      datasets: [{
+        label: 'Number of Products per Store',
+        data: numOfProducts,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,        
+          title: {
+            display: true,
+            text: 'Number of Products'
+          },
+          ticks: {
+            stepSize: 1, // Display integer values only
+            precision: 0 // Display integers without decimals
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Stores'  
+          }
+        }
+      }
+    }
+  });
+}
+
+
+    // Call the function to fetch and display the number of products per store when the page loads
+    window.addEventListener('load', fetchNumOfProductsPerStore);
+
     function logout() {
       // Implement logout functionality here
       alert("Logout clicked!");
@@ -119,6 +246,12 @@
     function openContactUsPage() {
         window.location.href = "ContactUs.html";
     }
+    // Function to handle modifying store entry
+    function modifyProductEntry(storeId) {
+      // Redirect to modify store page with storeId parameter
+      window.location.href = `ModifyProduct.html?storeId=${storeId}`;
+    }
+
   </script>
 </body>
 </html>
