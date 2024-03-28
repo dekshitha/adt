@@ -218,6 +218,10 @@ function generateLineChart(storeNames, numOfProducts) {
     function logout() {
       // Implement logout functionality here
       alert("Logout clicked!");
+      // Log the navigation path
+      console.log("Navigating to:", "../index.html");
+      //on logout the main index page will open
+      window.location.href = "../index.html";
     }
 
     // Function to fetch and include navbar using JavaScript
