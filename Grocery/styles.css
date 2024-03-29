@@ -16,21 +16,40 @@ body {
     color: #333;
 }
 
+
+
+/* Home page styling */
+#about, #services, #contact {
+    background-color: #f0f0f0; /* Light gray background */
+    padding: 40px 0;
+    text-align: center;
+}
+
+#about h2, #services h2, #contact h2 {
+    margin-bottom: 20px;
+    color: #343a40; /* Dark gray heading color */
+}
+
+#about p, #services p, #contact p {
+    font-size: 18px;
+    color: #666; /* Dark gray paragraph text color */
+    margin-bottom: 20px;
+}
+
 /* Adjusted CSS for the "Add to Cart" button */
-.restaurant-card .add-to-cart {
+.add-to-cart {
     background-color: #007bff; /* Blue color for the button */
     color: #fff; /* White text color */
     border: none; /* No border */
-    border-radius: 50%; /* Round shape */
-    width: 30px; /* Width of the button */
-    height: 30px; /* Height of the button */
-    font-size: 20px; /* Size of the plus sign */
-    line-height: 30px; /* Centering the plus sign vertically */
-    text-align: center; /* Centering the plus sign horizontally */
-    position: absolute; /* Positioning relative to the card */
-    top: 10px; /* Adjust the top position */
-    right: 10px; /* Adjust the right position */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 20px; /* Padding around text */
+    font-size: 16px; /* Font size */
     cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.add-to-cart:hover {
+    background-color: #d10d903f; /* Darker blue color on hover */
 }
 /* Checkout button styling */
 #checkout-button {
@@ -51,9 +70,16 @@ body {
     background-color: #218838; /* Darker green color on hover */
 }
 
+/* Add margins between main heading and other headings */
+h1 {
+    margin-bottom: 20px;
+}
 
-
-
+/* Apply specific margins to other headings */
+h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
 
 .container {
     max-width: 1200px;
@@ -62,7 +88,7 @@ body {
 }
 
 .section {
-    padding: 40px 0;
+    padding: 40px;
 }
 
 /* Header styling */
@@ -91,81 +117,155 @@ nav ul li a {
     font-weight: bold;
 }
 
-/* Services page styling */
-#restaurant-list {
+
+/* Grocery list styling */
+#grocery-list-store1 {
     background-color: #fff;
     padding: 40px 0;
+   /* margin-top: 20px; /* Add space between restaurant and grocery sections */
 }
-
-.restaurant-list {
+.grocery-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust the width as needed */
+    gap: 30px; /* Add gap between grocery cards */
 }
 
-.restaurant-card {
+
+.grocery-card {
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added bit of shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s ease-in-out;
+    position: relative; 
 }
 
-.restaurant-card:hover {
+.grocery-card:hover {
     transform: translateY(-5px);
 }
 
-.restaurant-card img {
+/* Custom CSS for groceries.html */
+.grocery-card img {
     width: 100%;
     height: 200px;
-    object-fit: cover;
+    object-fit: contain; /* Adjusted object-fit property */
     border-bottom: 1px solid #ddd;
     border-radius: 8px 8px 0 0;
 }
 
-.restaurant-details {
+
+.grocery-details {
     padding: 20px;
 }
 
-.restaurant-details h3 {
+.grocery-details h3 {
     font-size: 20px;
     margin-bottom: 10px;
     color: #333;
 }
 
-.restaurant-details p {
+.grocery-details p {
     font-size: 16px;
     margin-bottom: 5px;
     color: #666;
 }
 
-.restaurant-details span {
+.grocery-details span {
     font-weight: bold;
     color: #333;
 }
 
-.restaurant-details .distance {
+.grocery-details .distance {
     margin-top: 10px;
     font-size: 14px;
     color: #666;
 }
 
-.restaurant-details .distance:before {
+.grocery-details .distance:before {
     content: "\2022";
     margin-right: 5px;
 }
 
-.restaurant-details .distance:before,
-.restaurant-details .distance:after {
+.grocery-details .distance:before,
+.grocery-details .distance:after {
     display: inline-block;
     vertical-align: middle;
     font-size: 10px;
     color: #666;
 }
 
-.restaurant-details .distance:after {
+.grocery-details .distance:after {
     content: " ";
     width: 8px;
     height: 1px;
     background-color: #666;
+}
+.grocery-list-store1{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Styling for Local Food Banks section */
+#local-food-banks {
+    padding: 20px;
+    margin-bottom: 20px; /* Add margin bottom to create space between sections */
+}
+
+#local-food-banks .container {
+    max-width: 1200px; /* Adjust width to match other sections */
+    margin: 0 auto; /* Center the section */
+}
+
+#local-food-banks .food-banks-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#local-food-banks .food-bank {
+    width: calc(33.33% - 20px);
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#local-food-banks .food-bank h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+#local-food-banks .details {
+    display: none;
+    margin-top: 15px;
+    color: #666;
+}
+
+#local-food-banks .food-bank:hover .details {
+    display: block;
+}
+
+/* Align with Grocery section */
+#grocery {
+    margin-top: 0; /* Ensure Grocery section starts from top */
+    margin-bottom: 20px; /* Add margin bottom to create space between sections */
+}
+
+
+/* Adjusted CSS for the "Add to Cart" button */
+.add-to-cart {
+    background-color: #007bff; /* Blue color for the button */
+    color: #fff; /* White text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 20px; /* Padding around text */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.add-to-cart:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
 }
