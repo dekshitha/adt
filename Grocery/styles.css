@@ -269,3 +269,60 @@ nav ul li a {
 .add-to-cart:hover {
     background-color: #0056b3; /* Darker blue color on hover */
 }
+
+/* CSS for cart page */
+.cart-item {
+    border-bottom: 1px solid #ccc;
+    padding: 20px 0;
+}
+
+.item-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-details h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.item-details p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.item-details input.quantity-input {
+    width: 60px; /* Adjust the width to accommodate numbers properly */
+    height: 30px;
+    padding: 0 8px; /* Adjust padding for better spacing */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+
+
+.item-details button.remove-item {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.item-details button.remove-item:hover {
+    background-color: #c82333;
+}
+
+.total-price {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
