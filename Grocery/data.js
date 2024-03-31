@@ -12,7 +12,7 @@ const groceries = [
         type: 'Bakery',
         price: 3,
         quantity: 40,
-        expiry: '04/3/2024',
+        expiry: '10/1/2024',
         image: 'bread.jpg'
     },
     {
@@ -20,7 +20,7 @@ const groceries = [
         type: 'Pulses',
         price: 4,
         quantity: 30,
-        expiry: '04/10/2024',
+        expiry: '20/1/2024',
         image: 'lentils.png'
     },
     {
@@ -28,7 +28,7 @@ const groceries = [
         type: 'Dairy',
         price: 2,
         quantity: 35,
-        expiry: '04/07/2024',
+        expiry: '04/02/2024',
         image: 'curd.jpg'
     },
     {
@@ -36,7 +36,7 @@ const groceries = [
         type: 'Dairy',
         price: 3.5,
         quantity: 20,
-        expiry: '04/05/2024',
+        expiry: '15/01/2024',
         image: 'cream.png'
     }
 ];

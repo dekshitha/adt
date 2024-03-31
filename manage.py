@@ -6,10 +6,10 @@ app = Flask(__name__)
 
 # Sample grocery data
 grocery_data = [
-    {"name": "Milk", "expiry_date": "2024-04-10"},
-    {"name": "Bread", "expiry_date": "2024-04-05"},
-    {"name": "Eggs", "expiry_date": "2024-04-15"},
-    {"name": "Yogurt", "expiry_date": "2024-04-08"}
+    {"name": "Milk", "expiry_date": "04-01-2024"},
+    {"name": "Bread", "expiry_date": "10-01-2024"},
+    {"name": "Cream-cheese", "expiry_date": "15-01-2024"},
+    
 ]
 
 # Convert expiry dates to datetime objects
