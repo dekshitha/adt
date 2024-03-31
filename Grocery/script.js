@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const quantity = parseInt(prompt(`Enter the quantity for ${itemName}:`));
             if (!isNaN(quantity) && quantity > 0) {
                 addToCart(itemName, quantity);
-                window.location.href = 'cart.html'; // Redirect to cart page
+                window.location.href = 'cartGro.html'; // Redirect to cart page
             } else {
                 alert('Please enter a valid quantity.');
             }
