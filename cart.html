@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopping Carts</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .card {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+  }
+
+  .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .card-content {
+    padding: 20px;
+  }
+
+  .card-content h2 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .card-content p {
+    margin-bottom: 20px;
+    color: #666;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card" id="restaurant-card">
+    <!-- <img src="restaurant.jpg" alt="Restaurant Cart"> -->
+    <div class="card-content">
+      <h2>Restaurant Cart</h2>
+      <p>Add your favorite restaurant items to the cart.</p>
+      <a href="#" class="btn">Explore</a>
+    </div>
+  </div>
+  <div class="card" id="grocery-card">
+    <!-- <img src="grocery.jpg" alt="Grocery Cart"> -->
+    <div class="card-content">
+      <h2>Grocery Cart</h2>
+      <p>Shop for fresh groceries and essentials.</p>
+      <a href="/Users/dekshitha/Documents/React/adt/Restaurants/Grocery/cartGro.html" class="btn">Shop Now</a>
+    </div>
+  </div>
+  <div class="card" id="recipe-card">
+    <!-- <img src="recipe.jpg" alt="Recipe Recommendation Cart"> -->
+    <div class="card-content">
+      <h2>Recipe Recommendation</h2>
+      <p>Get personalized recipe recommendations.</p>
+      <button id="show-recipes-btn" class="btn">Show Recipes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const restaurantCard = document.getElementById('restaurant-card');
+  const groceryCard = document.getElementById('grocery-card');
+  const recipeCard = document.getElementById('recipe-card');
+
+  restaurantCard.addEventListener('mouseenter', () => {
+    restaurantCard.style.transform = 'translateY(-15px)';
+    groceryCard.style.opacity = '0.7';
+    recipeCard.style.opacity = '0.7';
+  });
+
+  restaurantCard.addEventListener('mouseleave', () => {
+    restaurantCard.style.transform = 'translateY(0)';
+    groceryCard.style.opacity = '1';
+    recipeCard.style.opacity = '1';
+  });
+
+  groceryCard.addEventListener('mouseenter', () => {
+    groceryCard.style.transform = 'translateY(-15px)';
+    restaurantCard.style.opacity = '0.7';
+    recipeCard.style.opacity = '0.7';
+  });
+
+  groceryCard.addEventListener('mouseleave', () => {
+    groceryCard.style.transform = 'translateY(0)';
+    restaurantCard.style.opacity = '1';
+    recipeCard.style.opacity = '1';
+  });
+
+  recipeCard.addEventListener('mouseenter', () => {
+    recipeCard.style.transform = 'translateY(-15px)';
+    restaurantCard.style.opacity = '0.7';
+    groceryCard.style.opacity = '0.7';
+  });
+
+  recipeCard.addEventListener('mouseleave', () => {
+    recipeCard.style.transform = 'translateY(0)';
+    restaurantCard.style.opacity = '1';
+    groceryCard.style.opacity = '1';
+  });
+
+ 
+  document.getElementById('show-recipes-btn').addEventListener('click', function() {
+    window.location.href = "http://127.0.0.1:5000";
+  });
+
+</script>
+
+</body>
+</html>

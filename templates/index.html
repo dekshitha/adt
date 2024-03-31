@@ -1,0 +1,362 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipe Recommendations</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin-bottom: 20px;
+    height: 450px; /* Set the desired height */
+    overflow: auto; /* Add overflow:auto to enable scrolling if content exceeds the height */
+}
+
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 16px;
+}
+
+.no-recipes {
+    font-size: 16px;
+    color: #888;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.matching-count {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.buttons-container {
+    margin-top: 20px;
+}
+
+#prevBtn, #nextBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Recommended Recipes</h1>
+    <div id="recommendations"></div>
+    <div class="buttons-container">
+        <button id="prevBtn" onclick="prevRecipe()">Previous</button>
+        <button id="nextBtn" onclick="nextRecipe()">Next</button>
+    </div>
+</div>
+
+<script>
+let currentIndex = 0;
+let recipes = [];
+
+document.addEventListener("DOMContentLoaded", function() {
+    fetchRecipes();
+});
+
+function fetchRecipes() {
+    fetch('/recommend', {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        recipes = data;
+        renderRecipe(currentIndex);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function renderRecipe(index) {
+    const recommendationsDiv = document.getElementById('recommendations');
+    recommendationsDiv.innerHTML = '';
+
+    if (recipes.length === 0) {
+        recommendationsDiv.innerHTML = '<p class="no-recipes">No recipes found.</p>';
+    } else {
+        const recipe = recipes[index];
+        const card = createRecipeCard(recipe);
+        recommendationsDiv.appendChild(card);
+    }
+}
+
+function createRecipeCard(recipe) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    const cardContent = document.createElement('div');
+    cardContent.classList.add('card-content');
+
+    const cardTitle = document.createElement('h2');
+    cardTitle.classList.add('card-title');
+    cardTitle.textContent = recipe.name;
+
+    const cardIngredients = document.createElement('p');
+    cardIngredients.classList.add('card-text');
+    cardIngredients.textContent = "Ingredients: " + recipe.ingredients.join(', ');
+
+    const cardSteps = document.createElement('p');
+    cardSteps.classList.add('card-text');
+    cardSteps.textContent = "Steps: " + recipe.steps.join(' | ');
+
+    const matchingCount = document.createElement('p');
+    matchingCount.classList.add('matching-count');
+    matchingCount.textContent = `Matching Ingredients: ${recipe.match_count} / ${recipe.ingredients.length}`;
+
+    cardContent.appendChild(cardTitle);
+    cardContent.appendChild(cardIngredients);
+    cardContent.appendChild(cardSteps);
+    cardContent.appendChild(matchingCount);
+    card.appendChild(cardContent);
+
+    return card;
+}
+
+function prevRecipe() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        renderRecipe(currentIndex);
+    }
+}
+
+function nextRecipe() {
+    if (currentIndex < recipes.length - 1) {
+        currentIndex++;
+        renderRecipe(currentIndex);
+    }
+}
+</script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grocery Expiry Timeline</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin-bottom: 20px;
+}
+
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 16px;
+    }
+
+    .no-recipes {
+        font-size: 16px;
+        color: #888;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .matching-count {
+        font-size: 14px;
+        color: #666;
+        margin-top: 5px;
+    }
+
+    #graph-container {
+      text-align: center;
+      max-width: 70%; /* Reduce width by 10% */
+      margin: 0 auto; /* Center the container */
+    }
+
+
+    .buttons-container {
+    margin: 20px;
+    
+}
+
+    #prevBtn, #nextBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Recommended Recipes</h1>
+    <div id="recommendations"></div>
+    <div class="buttons-container">
+        <button id="prevBtn" onclick="prevRecipe()">Previous</button>
+        <button id="nextBtn" onclick="nextRecipe()">Next</button>
+    </div>
+</div>
+
+  <div id="graph-container">
+    <div id="graph"></div>
+  </div>
+
+  <script>
+    var graphJson = {{ graph_json | tojson | safe }};
+    Plotly.newPlot('graph', JSON.parse(graphJson));
+  </script>
+
+  <script>
+    let currentIndex = 0;
+    let recipes = [];
+
+    document.addEventListener("DOMContentLoaded", function() {
+      fetchRecipes();
+    });
+
+    function fetchRecipes() {
+      fetch('/recommend', {
+        method: 'GET'
+      })
+      .then(response => response.json())
+      .then(data => {
+        recipes = data;
+        renderRecipe(currentIndex);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
+    function renderRecipe(index) {
+      const recommendationsDiv = document.getElementById('recommendations');
+      recommendationsDiv.innerHTML = '';
+
+      if (recipes.length === 0) {
+        recommendationsDiv.innerHTML = '<p class="no-recipes">No recipes found.</p>';
+      } else {
+        const recipe = recipes[index];
+        const card = createRecipeCard(recipe);
+        recommendationsDiv.appendChild(card);
+      }
+    }
+
+    function createRecipeCard(recipe) {
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      const cardContent = document.createElement('div');
+      cardContent.classList.add('card-content');
+
+      const cardTitle = document.createElement('h2');
+      cardTitle.classList.add('card-title');
+      cardTitle.textContent = recipe.name;
+
+      const cardIngredients = document.createElement('p');
+      cardIngredients.classList.add('card-text');
+      cardIngredients.textContent = "Ingredients: " + recipe.ingredients.join(', ');
+
+      const cardSteps = document.createElement('p');
+      cardSteps.classList.add('card-text');
+      cardSteps.textContent = "Steps: " + recipe.steps.join(' | ');
+
+      const matchingCount = document.createElement('p');
+      matchingCount.classList.add('matching-count');
+      matchingCount.textContent = `Matching Ingredients: ${recipe.match_count} / ${recipe.ingredients.length}`;
+
+      cardContent.appendChild(cardTitle);
+      cardContent.appendChild(cardIngredients);
+      cardContent.appendChild(cardSteps);
+      cardContent.appendChild(matchingCount);
+      card.appendChild(cardContent);
+
+      return card;
+    }
+
+    function prevRecipe() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderRecipe(currentIndex);
+      }
+    }
+
+    function nextRecipe() {
+      if (currentIndex < recipes.length - 1) {
+        currentIndex++;
+        renderRecipe(currentIndex);
+      }
+    }
+  </script>
+</body>
+</html>
